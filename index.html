@@ -1,85 +1,472 @@
 <!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Sabrina El Hassani — Portfolio</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sabrina El Hassani Portfolio</title>
+  <meta name="description" content="Portfolio de Sabrina El Hassani, Data et Intelligence Artificielle">
+
   <style>
-    body{font-family:Arial,Helvetica,sans-serif;max-width:920px;margin:40px auto;padding:0 18px;line-height:1.5}
-    h1{margin:0 0 6px}
-    .muted{color:#555}
-    .tag{display:inline-block;border:1px solid #ddd;border-radius:999px;padding:6px 10px;margin:6px 6px 0 0;font-size:13px}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:18px}
-    .card{border:1px solid #eee;border-radius:14px;padding:14px}
-    .card h3{margin:0 0 6px}
-    a{color:#0b57d0;text-decoration:none}
-    a:hover{text-decoration:underline}
-    .links a{margin-right:10px}
-    .top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    :root{
+      --bg0:#070a12;
+      --bg1:#0b1020;
+      --card:rgba(255,255,255,0.06);
+      --card2:rgba(255,255,255,0.08);
+      --stroke:rgba(255,255,255,0.10);
+      --text:#e9eefc;
+      --muted:rgba(233,238,252,0.70);
+      --muted2:rgba(233,238,252,0.55);
+      --accent:#7c5cff;
+      --accent2:#22d3ee;
+      --ok:#34d399;
+      --shadow: 0 18px 60px rgba(0,0,0,0.55);
+      --radius:18px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background:
+        radial-gradient(900px 600px at 18% 18%, rgba(124,92,255,0.22), transparent 60%),
+        radial-gradient(900px 600px at 82% 22%, rgba(34,211,238,0.16), transparent 62%),
+        radial-gradient(1100px 700px at 50% 92%, rgba(52,211,153,0.10), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow-x:hidden;
+    }
+
+    a{color:inherit; text-decoration:none}
+    a:hover{opacity:0.92}
+
+    .wrap{
+      max-width:1100px;
+      margin:0 auto;
+      padding:44px 18px 70px;
+    }
+
+    .topbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+      flex-wrap:wrap;
+      margin-bottom:18px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      min-width:280px;
+    }
+
+    .avatar{
+      width:46px;
+      height:46px;
+      border-radius:14px;
+      background:
+        radial-gradient(14px 14px at 30% 30%, rgba(255,255,255,0.55), transparent 60%),
+        linear-gradient(135deg, rgba(124,92,255,0.9), rgba(34,211,238,0.65));
+      box-shadow: 0 10px 26px rgba(0,0,0,0.45);
+      border:1px solid rgba(255,255,255,0.18);
+    }
+
+    h1{
+      margin:0;
+      font-size:30px;
+      letter-spacing:0.2px;
+      line-height:1.1;
+    }
+
+    .subtitle{
+      margin-top:6px;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.35;
+    }
+
+    .actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:flex-end;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius:14px;
+      background:rgba(255,255,255,0.07);
+      border:1px solid var(--stroke);
+      box-shadow: 0 8px 22px rgba(0,0,0,0.30);
+      transition: transform 160ms ease, background 160ms ease, border 160ms ease;
+      font-size:14px;
+      color:var(--text);
+      user-select:none;
+    }
+    .btn:hover{transform: translateY(-1px); background:rgba(255,255,255,0.10); border-color: rgba(255,255,255,0.18)}
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(124,92,255,0.95), rgba(34,211,238,0.75));
+      border-color: rgba(255,255,255,0.18);
+    }
+
+    .pillbar{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:18px;
+      margin-bottom:24px;
+    }
+    .pill{
+      padding:8px 12px;
+      border-radius:999px;
+      background: rgba(255,255,255,0.06);
+      border:1px solid var(--stroke);
+      color: var(--muted);
+      font-size:13px;
+      letter-spacing:0.2px;
+    }
+
+    .hero{
+      position:relative;
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      border:1px solid var(--stroke);
+      box-shadow: var(--shadow);
+      padding:18px 18px;
+      overflow:hidden;
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        radial-gradient(320px 180px at 22% 30%, rgba(124,92,255,0.18), transparent 60%),
+        radial-gradient(320px 180px at 78% 42%, rgba(34,211,238,0.12), transparent 62%),
+        radial-gradient(320px 180px at 45% 90%, rgba(52,211,153,0.10), transparent 62%);
+      pointer-events:none;
+      filter: blur(0.2px);
+    }
+
+    .heroGrid{
+      position:relative;
+      display:grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap:14px;
+      align-items:stretch;
+    }
+
+    @media (max-width: 880px){
+      .heroGrid{grid-template-columns:1fr}
+      .actions{justify-content:flex-start}
+    }
+
+    .card{
+      border-radius: var(--radius);
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      padding:16px;
+      backdrop-filter: blur(10px);
+    }
+
+    .kpi{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .kpiBox{
+      border-radius: 16px;
+      background: rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.10);
+      padding:12px 12px;
+    }
+    .kpiTitle{color:var(--muted2); font-size:12px}
+    .kpiValue{margin-top:6px; font-size:15px; color:var(--text)}
+    .kpiValue strong{font-weight:700}
+
+    h2{
+      margin:28px 0 12px;
+      font-size:18px;
+      letter-spacing:0.2px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap:14px;
+    }
+
+    @media (max-width: 1000px){
+      .grid{grid-template-columns: repeat(2, minmax(0, 1fr));}
+    }
+    @media (max-width: 640px){
+      .grid{grid-template-columns: 1fr;}
+    }
+
+    .proj{
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.04));
+      border: 1px solid var(--stroke);
+      box-shadow: 0 12px 44px rgba(0,0,0,0.42);
+      padding:16px;
+      display:flex;
+      flex-direction:column;
+      min-height: 220px;
+      transition: transform 180ms ease, border 180ms ease, background 180ms ease;
+    }
+    .proj:hover{
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,0.18);
+      background: linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0.05));
+    }
+
+    .projTitle{
+      margin:0;
+      font-size:16px;
+      letter-spacing:0.2px;
+      line-height:1.25;
+    }
+    .stack{
+      margin-top:10px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+    .badge{
+      font-size:12px;
+      color: rgba(233,238,252,0.75);
+      background: rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.10);
+      padding:6px 10px;
+      border-radius:999px;
+    }
+
+    .projDesc{
+      margin-top:12px;
+      color: var(--muted);
+      font-size:14px;
+      line-height:1.45;
+      flex:1;
+    }
+
+    .projLinks{
+      margin-top:14px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .linkBtn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      font-size:13px;
+      transition: transform 160ms ease, background 160ms ease, border 160ms ease;
+    }
+    .linkBtn:hover{transform: translateY(-1px); background: rgba(255,255,255,0.10); border-color: rgba(255,255,255,0.18)}
+    .linkBtn.strong{
+      background: linear-gradient(135deg, rgba(124,92,255,0.85), rgba(34,211,238,0.65));
+      border-color: rgba(255,255,255,0.18);
+    }
+
+    .footer{
+      margin-top:34px;
+      color: var(--muted2);
+      font-size:13px;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      border-top:1px solid rgba(255,255,255,0.10);
+      padding-top:18px;
+    }
+
+    .small{font-size:13px; color: var(--muted)}
+    .dot{
+      width:8px;
+      height:8px;
+      border-radius:999px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display:inline-block;
+      margin-right:8px;
+      box-shadow: 0 0 0 4px rgba(124,92,255,0.12);
+    }
   </style>
 </head>
+
 <body>
-  <div class="top">
-    <div>
-      <h1>Sabrina El Hassani</h1>
-      <div class="muted">Étudiante ingénieure — Data & Intelligence Artificielle · Étudiante-Entrepreneure</div>
-      <div>
-        <span class="tag">Python</span>
-        <span class="tag">Machine Learning</span>
-        <span class="tag">Node.js</span>
-        <span class="tag">MySQL</span>
-        <span class="tag">C</span>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <div class="avatar" aria-hidden="true"></div>
+        <div>
+          <h1>Sabrina El Hassani</h1>
+          <div class="subtitle">
+            Étudiante ingénieure en Data et Intelligence Artificielle<br>
+            Étudiante entrepreneure
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <a class="btn primary" href="LIEN_LINKEDIN" target="_blank" rel="noreferrer">LinkedIn</a>
+        <a class="btn" href="mailto:sabrina.el-hassani@efrei.net">Email</a>
+        <a class="btn" href="LIEN_GITHUB" target="_blank" rel="noreferrer">GitHub</a>
+        <a class="btn" href="LIEN_CV_PDF" target="_blank" rel="noreferrer">CV</a>
       </div>
     </div>
-    <div class="links">
-      <a href="https://linkedin.com/in/sabrina-el-hassani">LinkedIn</a>
-      <a href="mailto:sabrina.el-hassani@efrei.net">Email</a>
+
+    <div class="pillbar">
+      <span class="pill">Python</span>
+      <span class="pill">Machine Learning</span>
+      <span class="pill">Data</span>
+      <span class="pill">Node.js</span>
+      <span class="pill">MySQL</span>
+      <span class="pill">C</span>
+    </div>
+
+    <div class="hero">
+      <div class="heroGrid">
+        <div class="card">
+          <div class="small"><span class="dot"></span>À propos</div>
+          <p style="margin:10px 0 0; color: var(--muted); font-size:14px; line-height:1.55;">
+            Je construis des projets orientés données, IA et automatisation. Je cherche une alternance de 24 mois à partir de septembre 2026 au rythme 3 jours entreprise 2 jours école.
+          </p>
+          <p style="margin:10px 0 0; color: var(--muted); font-size:14px; line-height:1.55;">
+            Mon objectif est de livrer des solutions claires et fiables, avec une vraie valeur métier, tout en gardant une base technique solide.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="small"><span class="dot"></span>Compétences</div>
+          <div class="kpi" style="margin-top:10px;">
+            <div class="kpiBox">
+              <div class="kpiTitle">Data et IA</div>
+              <div class="kpiValue"><strong>pandas</strong> NumPy scikit learn</div>
+            </div>
+            <div class="kpiBox">
+              <div class="kpiTitle">Développement</div>
+              <div class="kpiValue"><strong>Python</strong> C Java JavaScript</div>
+            </div>
+            <div class="kpiBox">
+              <div class="kpiTitle">Web</div>
+              <div class="kpiValue">Node.js PugJS React Vue HTML CSS</div>
+            </div>
+            <div class="kpiBox">
+              <div class="kpiTitle">Bases de données</div>
+              <div class="kpiValue">MySQL phpMyAdmin XAMPP</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h2>Projets</h2>
+    <div class="grid">
+
+      <div class="proj">
+        <h3 class="projTitle">Générateur de quiz pour enseignants API IA</h3>
+        <div class="stack">
+          <span class="badge">Node.js</span>
+          <span class="badge">PugJS</span>
+          <span class="badge">MySQL</span>
+          <span class="badge">XAMPP</span>
+          <span class="badge">API IA</span>
+        </div>
+        <div class="projDesc">
+          Plateforme web avec authentification et génération de quiz via une API IA. Utilisé à l’APU par un professeur de Web.
+        </div>
+        <div class="projLinks">
+          <a class="linkBtn strong" href="LIEN_REPO_QUIZ" target="_blank" rel="noreferrer">Code</a>
+          <a class="linkBtn" href="LIEN_DEMO_QUIZ" target="_blank" rel="noreferrer">Démo</a>
+        </div>
+      </div>
+
+      <div class="proj">
+        <h3 class="projTitle">Classification de plantes médicinales</h3>
+        <div class="stack">
+          <span class="badge">Python</span>
+          <span class="badge">scikit learn</span>
+          <span class="badge">KNN</span>
+          <span class="badge">Régression logistique</span>
+        </div>
+        <div class="projDesc">
+          Classification multiclasses avec prétraitement complet, comparaison de modèles et évaluation sur un jeu de données réel.
+        </div>
+        <div class="projLinks">
+          <a class="linkBtn strong" href="LIEN_REPO_ML" target="_blank" rel="noreferrer">Code</a>
+          <a class="linkBtn" href="LIEN_RAPPORT_ML" target="_blank" rel="noreferrer">Rapport</a>
+        </div>
+      </div>
+
+      <div class="proj">
+        <h3 class="projTitle">Chatbot documentaire</h3>
+        <div class="stack">
+          <span class="badge">Python</span>
+          <span class="badge">Recherche</span>
+          <span class="badge">Extraction</span>
+        </div>
+        <div class="projDesc">
+          Assistant conversationnel basé sur documents fournis, recherche et comparaison, réponses avec extraits sourcés.
+        </div>
+        <div class="projLinks">
+          <a class="linkBtn strong" href="LIEN_REPO_CHATBOT" target="_blank" rel="noreferrer">Code</a>
+          <a class="linkBtn" href="LIEN_DEMO_CHATBOT" target="_blank" rel="noreferrer">Démo</a>
+        </div>
+      </div>
+
+      <div class="proj">
+        <h3 class="projTitle">CDataFrame</h3>
+        <div class="stack">
+          <span class="badge">C</span>
+          <span class="badge">Structures</span>
+          <span class="badge">Tableau dynamique</span>
+        </div>
+        <div class="projDesc">
+          Librairie en C pour manipuler un DataFrame de type tableur, inspirée de pandas, avec menu et fonctions de manipulation.
+        </div>
+        <div class="projLinks">
+          <a class="linkBtn strong" href="LIEN_REPO_CDATAFRAME" target="_blank" rel="noreferrer">Code</a>
+          <a class="linkBtn" href="LIEN_README_CDATAFRAME" target="_blank" rel="noreferrer">Détails</a>
+        </div>
+      </div>
+
+      <div class="proj">
+        <h3 class="projTitle">Automates finis en Python</h3>
+        <div class="stack">
+          <span class="badge">Mathématiques</span>
+          <span class="badge">Python</span>
+          <span class="badge">Automates</span>
+        </div>
+        <div class="projDesc">
+          Implémentation en Python des transformations sur automates finis, avec tests de cohérence et validation sur exemples.
+        </div>
+        <div class="projLinks">
+          <a class="linkBtn strong" href="LIEN_REPO_AUTOMATES" target="_blank" rel="noreferrer">Code</a>
+          <a class="linkBtn" href="LIEN_DEMO_AUTOMATES" target="_blank" rel="noreferrer">Démo</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer">
+      <div>Contact sabrina.el.hassani@efrei.net</div>
+      <div>Versailles Paris France</div>
     </div>
   </div>
-
-  <h2>Projets</h2>
-  <div class="grid">
-
-    <div class="card">
-      <h3>Générateur de quiz pour enseignants (API IA)</h3>
-      <div class="muted">Node.js · PugJS · MySQL · XAMPP</div>
-      <p>Plateforme web avec authentification et génération de quiz via une API IA. Utilisé à l’APU par un professeur de Web.</p>
-      <div class="links">
-        <a href="LIEN_REPO_QUIZ">Code</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>Classification de plantes médicinales (ML)</h3>
-      <div class="muted">Python · scikit-learn</div>
-      <p>Classification multiclasses : comparaison KNN vs régression logistique, prétraitement et évaluation.</p>
-      <div class="links">
-        <a href="LIEN_REPO_ML">Code</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>Chatbot documentaire</h3>
-      <div class="muted">Python</div>
-      <p>Assistant conversationnel basé sur documents fournis : recherche, comparaison et réponses avec extraits sourcés.</p>
-      <div class="links">
-        <a href="LIEN_REPO_CHATBOT">Code</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>CDataFrame</h3>
-      <div class="muted">C</div>
-      <p>Librairie en C pour manipuler un DataFrame (type tableur) inspirée de pandas.</p>
-      <div class="links">
-        <a href="LIEN_REPO_CDATAFRAME">Code</a>
-      </div>
-    </div>
-
-  </div>
-
-  <h2>Contact</h2>
-  <p><a href="mailto:sabrina.el-hassani@efrei.net">sabrina.el-hassani@efrei.net</a> · Versailles, Paris</p>
 </body>
 </html>
+
 
